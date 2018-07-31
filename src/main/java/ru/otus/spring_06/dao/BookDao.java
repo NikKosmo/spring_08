@@ -10,6 +10,8 @@ public interface BookDao {
 
     void insert(Book book);
 
+    void delete(int id);
+
     Book getById(int id);
 
     List<Book> getAll();

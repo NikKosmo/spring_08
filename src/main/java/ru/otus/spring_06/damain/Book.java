@@ -1,13 +1,14 @@
 package ru.otus.spring_06.damain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Book {
 
     private int id;
     private String name;
-    private List<String> authors;
-    private String genre;
+    private List<Author> authors = new ArrayList<>();
+    private Genre genre;
 
     public int getId() {
         return id;
@@ -25,15 +26,15 @@ public class Book {
         this.name = name;
     }
 
-    public List<String> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 
