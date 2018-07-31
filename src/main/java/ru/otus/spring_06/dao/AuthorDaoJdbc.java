@@ -31,12 +31,9 @@ public class AuthorDaoJdbc implements AuthorDao {
 
     @Override
     public List<Author> findBookAuthors(int bookId) {
-        List<Map<String, Object>> authors = jdbc.queryForList("select a.id, a.name from authors a" +
+        return jdbc.query("select a.id, a.name from authors a" +
                         " join books_authors b on a.id = b.author_id and b.book_id = :bookId",
-                Collections.singletonMap("bookId", bookId));
-        return authors.stream()
-                .map(this::mapRow)
-                .collect(Collectors.toList());
+                Collections.singletonMap("bookId", bookId), new AuthorMapper());
     }
 
     private class AuthorMapper implements RowMapper<Author> {
@@ -47,12 +44,5 @@ public class AuthorDaoJdbc implements AuthorDao {
             result.setName(resultSet.getString("name"));
             return result;
         }
-    }
-
-    private Author mapRow(Map<String, Object> fieldMap) {
-        Author result = new Author();
-        result.setId((Integer) fieldMap.get("id"));
-        result.setName((String) fieldMap.get("name"));
-        return result;
     }
 }
