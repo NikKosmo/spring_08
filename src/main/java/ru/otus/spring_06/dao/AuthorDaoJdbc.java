@@ -1,5 +1,6 @@
 package ru.otus.spring_06.dao;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
@@ -21,8 +22,13 @@ public class AuthorDaoJdbc implements AuthorDao {
 
     @Override
     public Author getById(int id) {
-        return jdbc.queryForObject("select * from authors where id = :id",
-                Collections.singletonMap("id", id), new AuthorMapper());
+        try {
+            return jdbc.queryForObject("select * from authors where id = :id",
+                    Collections.singletonMap("id", id), new AuthorMapper());
+        } catch (
+                EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override

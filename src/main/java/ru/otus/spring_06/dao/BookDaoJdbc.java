@@ -1,5 +1,6 @@
 package ru.otus.spring_06.dao;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
@@ -55,13 +56,17 @@ public class BookDaoJdbc implements BookDao {
 
     @Override
     public Book getById(int id) {
-        Map<String, Integer> parameterMap = Collections.singletonMap("id", id);
-        Book book = jdbc.queryForObject("select * from books where id = :id",
-                parameterMap, new BookMapper());
-        if (book != null) {
-            book.getAuthors().addAll(authorDao.findBookAuthors(id));
+        try {
+            Map<String, Integer> parameterMap = Collections.singletonMap("id", id);
+            Book book = jdbc.queryForObject("select * from books where id = :id",
+                    parameterMap, new BookMapper());
+            if (book != null) {
+                book.getAuthors().addAll(authorDao.findBookAuthors(id));
+            }
+            return book;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         }
-        return book;
     }
 
     @Override
@@ -77,6 +82,7 @@ public class BookDaoJdbc implements BookDao {
             result.setName(resultSet.getString("name"));
             result.setGenre(genreDao.getById(resultSet.getInt("genre_id")));
             return result;
+
         }
     }
 }
