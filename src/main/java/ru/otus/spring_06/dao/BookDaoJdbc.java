@@ -9,7 +9,6 @@ import ru.otus.spring_06.damain.Book;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Repository
 public class BookDaoJdbc implements BookDao {
