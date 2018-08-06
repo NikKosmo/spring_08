@@ -2,7 +2,9 @@ package ru.otus.spring_07.damain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Book {
@@ -12,18 +14,20 @@ public class Book {
     private int id;
     private String name;
 
-    @ManyToMany(cascade=CascadeType.ALL)
-    private List<Author> authors = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private Set<Author> authors = new HashSet<>();
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
     private Genre genre;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private Set<Comment> comments = new HashSet<>();
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -34,7 +38,7 @@ public class Book {
         this.name = name;
     }
 
-    public List<Author> getAuthors() {
+    public Set<Author> getAuthors() {
         return authors;
     }
 
@@ -46,12 +50,18 @@ public class Book {
         this.genre = genre;
     }
 
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", authors=" + authors +
-                ", genre='" + genre + '\'' +
+                ", genre=" + genre +
+                ", comments=" + comments +
                 '}';
     }
 }
