@@ -23,3 +23,4 @@
  #common
 **/out
 **.class
+**.log

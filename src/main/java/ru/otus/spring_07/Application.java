@@ -19,10 +19,8 @@ public class Application {
 
         BookRepository bookDao = context.getBean(BookRepository.class);
         Book book = new Book();
-//        book.setId(2);
         book.setName("new name");
         Genre genre = new Genre();
-//        genre.setId(1);
         genre.setName("horror");
         book.setGenre(genre);
         Author author = new Author();
@@ -30,8 +28,7 @@ public class Application {
         book.getAuthors().add(author);
         bookDao.insert(book);
         System.out.println(bookDao.count());
-        bookDao.delete(book.getId());
-        System.out.println(bookDao.count());
+        System.out.println(bookDao.getByName("new name"));
 
         Console.main(args);
     }
