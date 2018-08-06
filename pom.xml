@@ -4,18 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.otus</groupId>
-    <artifactId>spring_06</artifactId>
+    <artifactId>spring_07</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>spring_06</name>
-    <description>Homework for Otus. Lesson 6</description>
+    <name>spring_07</name>
+    <description>Homework for Otus. Lesson 8</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.3.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <properties>
@@ -27,7 +27,12 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>

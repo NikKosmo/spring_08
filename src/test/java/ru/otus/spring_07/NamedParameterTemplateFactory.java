@@ -1,4 +1,4 @@
-package ru.otus.spring_06;
+package ru.otus.spring_07;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;

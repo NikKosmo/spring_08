@@ -1,13 +1,21 @@
-package ru.otus.spring_06.damain;
+package ru.otus.spring_07.damain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Book {
 
+    @Id
+    @GeneratedValue
     private int id;
     private String name;
+
+    @ManyToMany(cascade=CascadeType.ALL)
     private List<Author> authors = new ArrayList<>();
+
+    @ManyToOne(cascade=CascadeType.ALL)
     private Genre genre;
 
     public int getId() {
