@@ -33,7 +33,6 @@ public class AuthorRepositoryJpaTest {
     public void setUp() {
         author = new Author();
         author.setName("Stephen King");
-//        ReflectionTestUtils.setField(author, "id", 1);
 
         Book book = new Book();
         book.setName("Shining");
