@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BookService {
 
-    void create(String name);
+    void create(String name, String genreName, String authorName);
 
     Book getById(int id);
 

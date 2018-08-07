@@ -29,6 +29,11 @@ public class BookRepositoryJpa implements BookRepository {
     }
 
     @Override
+    public void save(Book book) {
+        em.merge(book);
+    }
+
+    @Override
     public void delete(int id) {
         Query query = em.createQuery("delete from Book b where b.id = :id");
         query.setParameter("id", id);

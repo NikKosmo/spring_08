@@ -10,6 +10,8 @@ public interface BookRepository {
 
     void insert(Book book);
 
+    void save(Book book);
+
     void delete(int id);
 
     Book getById(int id);
