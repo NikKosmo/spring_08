@@ -2,7 +2,6 @@ package ru.otus.spring_07.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.otus.spring_07.damain.Book;
 import ru.otus.spring_07.damain.Genre;
 
 import javax.persistence.EntityManager;
