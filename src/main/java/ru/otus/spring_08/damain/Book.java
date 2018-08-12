@@ -1,4 +1,4 @@
-package ru.otus.spring_07.damain;
+package ru.otus.spring_08.damain;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -12,16 +12,13 @@ public class Book {
     private int id;
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Author> authors = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Genre genre;
 
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Comment> comments = new HashSet<>();
 
     public int getId() {

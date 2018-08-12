@@ -1,4 +1,4 @@
-package ru.otus.spring_07.damain;
+package ru.otus.spring_08.damain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

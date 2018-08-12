@@ -1,4 +1,4 @@
-package ru.otus.spring_07.repository;
+package ru.otus.spring_08.repository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,18 +9,21 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.otus.spring_07.damain.Author;
-import ru.otus.spring_07.damain.Book;
-import ru.otus.spring_07.damain.Genre;
+import ru.otus.spring_08.damain.Author;
+import ru.otus.spring_08.damain.Book;
+import ru.otus.spring_08.damain.Genre;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-@ComponentScan("ru.otus.spring_07")
+@ComponentScan("ru.otus.spring_08")
 public class BookRepositoryJpaTest {
 
     @Autowired
@@ -43,14 +46,14 @@ public class BookRepositoryJpaTest {
     @Test
     public void count() {
         assertEquals(0, bookRepository.count());
-        bookRepository.insert(book);
+        bookRepository.save(book);
         assertEquals(1, bookRepository.count());
     }
 
     @Test
     public void insert() {
-        bookRepository.insert(book);
-        List<Book> books = bookRepository.getAll();
+        bookRepository.save(book);
+        List<Book> books = transformToList(bookRepository.findAll());
         Book savedBook = books.stream().findFirst().get();
         assertEquals(book.getName(), savedBook.getName());
     }
@@ -58,37 +61,42 @@ public class BookRepositoryJpaTest {
     @Test
     public void save() {
         bookRepository.save(book);
-        List<Book> books = bookRepository.getAll();
+        List<Book> books = transformToList(bookRepository.findAll());
         Book savedBook = books.stream().findFirst().get();
         assertEquals(book.getName(), savedBook.getName());
     }
 
     @Test
     public void delete() {
-        bookRepository.insert(book);
-        bookRepository.delete(book.getId());
+        bookRepository.save(book);
+        bookRepository.delete(book);
         assertEquals(0, bookRepository.count());
     }
 
     @Test
     public void getById() {
-        bookRepository.insert(book);
-        Book savedBook = bookRepository.getById(book.getId());
+        bookRepository.save(book);
+        Book savedBook = bookRepository.findById(book.getId()).get();
         assertEquals(book.getName(), savedBook.getName());
     }
 
     @Test
     public void getByName() {
-        bookRepository.insert(book);
-        Book savedBook = bookRepository.getByName("Shining");
+        bookRepository.save(book);
+        Book savedBook = bookRepository.findByName("Shining");
         assertEquals(book.getName(), savedBook.getName());
     }
 
     @Test
     public void getAll() {
-        bookRepository.insert(book);
-        List<Book> books = bookRepository.getAll();
+        bookRepository.save(book);
+        List<Book> books = transformToList(bookRepository.findAll());
         assertEquals(1, books.size());
         assertEquals(book.getName(), books.stream().findFirst().get().getName());
+    }
+
+    private List<Book> transformToList(Iterable<Book> books) {
+        return StreamSupport.stream(books.spliterator(), false)
+                .collect(Collectors.toList());
     }
 }

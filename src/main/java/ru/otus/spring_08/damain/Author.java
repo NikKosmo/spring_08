@@ -1,4 +1,4 @@
-package ru.otus.spring_07.damain;
+package ru.otus.spring_08.damain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Genre {
+public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Genre {
 
     @Override
     public String toString() {
-        return "Genre{" +
+        return "Author{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
