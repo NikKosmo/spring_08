@@ -1,15 +1,14 @@
 package ru.otus.spring_08.damain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
+import org.springframework.data.annotation.Id;
+import org.springframework.data.keyvalue.annotation.KeySpace;
+
+@KeySpace("comment")
 public class Comment {
 
     @Id
-    @GeneratedValue
-    private int id;
+    private Integer id;
     private String text;
 
     public String getText() {

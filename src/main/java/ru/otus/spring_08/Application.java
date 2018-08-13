@@ -3,10 +3,11 @@ package ru.otus.spring_08;
 import org.h2.tools.Console;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import org.springframework.data.map.repository.config.EnableMapRepositories;
 
 import java.sql.SQLException;
 
+@EnableMapRepositories
 @SpringBootApplication
 public class Application {
 

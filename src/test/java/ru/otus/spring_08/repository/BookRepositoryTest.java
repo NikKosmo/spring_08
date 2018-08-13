@@ -1,19 +1,17 @@
 package ru.otus.spring_08.repository;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.otus.spring_08.damain.Author;
 import ru.otus.spring_08.damain.Book;
 import ru.otus.spring_08.damain.Genre;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -21,10 +19,12 @@ import java.util.stream.StreamSupport;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+@DataMongoTest
+//@DataJpaTest
+//@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+//@Transactional
 @ComponentScan("ru.otus.spring_08")
-public class BookRepositoryJpaTest {
+public class BookRepositoryTest {
 
     @Autowired
     private BookRepository bookRepository;
@@ -41,6 +41,11 @@ public class BookRepositoryJpaTest {
         Author author = new Author();
         author.setName("Stephen King");
         book.getAuthors().add(author);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        bookRepository.deleteAll();
     }
 
     @Test

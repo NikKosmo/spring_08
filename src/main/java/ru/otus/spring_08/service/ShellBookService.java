@@ -6,26 +6,18 @@ import org.springframework.shell.standard.ShellOption;
 import ru.otus.spring_08.damain.Author;
 import ru.otus.spring_08.damain.Book;
 import ru.otus.spring_08.damain.Comment;
-import ru.otus.spring_08.repository.AuthorRepository;
+import ru.otus.spring_08.damain.Genre;
 import ru.otus.spring_08.repository.BookRepository;
-import ru.otus.spring_08.repository.GenreRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @ShellComponent
 public class ShellBookService implements BookService {
 
     private BookRepository repository;
-    private GenreRepository genreRepository;
-    private AuthorRepository authorRepository;
 
-    public ShellBookService(BookRepository repository,
-                            GenreRepository genreRepository,
-                            AuthorRepository authorRepository) {
+    public ShellBookService(BookRepository repository) {
         this.repository = repository;
-        this.genreRepository = genreRepository;
-        this.authorRepository = authorRepository;
     }
 
     @Override
@@ -33,11 +25,12 @@ public class ShellBookService implements BookService {
     public Book create(String name, String genreName, String authorName) {
         Book book = new Book();
         book.setName(name);
-        book.setGenre(genreRepository.findByName(genreName));
-        Author author = authorRepository.findByName(authorName);
-        if (author != null) {
-            book.getAuthors().add(author);
-        }
+        Genre genre = new Genre();
+        genre.setName(genreName);
+        book.setGenre(genre);
+        Author author = new Author();
+        author.setName(authorName);
+        book.getAuthors().add(author);
         return repository.save(book);
     }
 
@@ -64,7 +57,7 @@ public class ShellBookService implements BookService {
     @ShellMethod("writeComment")
     public void writeComment(int bookId, String commentText) {
         Optional<Book> bookOptional = repository.findById(bookId);
-        if (bookOptional.isPresent() ) {
+        if (bookOptional.isPresent()) {
             Book book = bookOptional.get();
             Comment comment = new Comment();
             comment.setText(commentText);
