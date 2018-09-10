@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>spring_07</name>
+    <name>spring_08</name>
     <description>Homework for Otus. Lesson 8</description>
 
     <parent>
