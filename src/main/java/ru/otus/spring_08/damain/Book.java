@@ -1,24 +1,22 @@
 package ru.otus.spring_08.damain;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.keyvalue.annotation.KeySpace;
+
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@KeySpace("book")
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Author> authors = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
     private Genre genre;
 
-    @OneToMany(cascade = CascadeType.ALL)
     private Set<Comment> comments = new HashSet<>();
 
     public int getId() {
